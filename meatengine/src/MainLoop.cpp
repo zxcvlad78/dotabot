@@ -13,6 +13,8 @@
 #include <meatengine/camera/Systems.hpp>
 #include <meatengine/timer/Systems.hpp>
 
+#include <meatengine/ScriptingServer.hpp>
+
 namespace meatengine {
 
     std::string MainLoop::get_window_title() { return m_window_title; }
@@ -58,6 +60,9 @@ namespace meatengine {
         m_window.create(m_prev_mode, title);
         m_window.setFramerateLimit(144);
 
+        ScriptingServer::lua().set_function("get_global_registry",
+            [this]() -> entt::registry& { return m_registry; }
+        );
         Generic::updating::install(m_registry);
         ui::updating::install(m_registry);
 

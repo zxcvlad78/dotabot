@@ -15,7 +15,10 @@ namespace meatengine::ui {
 
 	struct Padding { float top=0, right=0, bottom=0, left=0; };
 
-	struct Interactable {};
+	struct Interactable {
+		std::function<void(entt::registry&)> on_pressed;
+		std::function<void(entt::registry&)> on_hovered;
+	};
 
 	struct Disabled {};
 	struct Hovered {};
@@ -34,9 +37,7 @@ namespace meatengine::ui {
 		sf::RectangleShape shape;
 		bool foreground = true;
 
-
 		bool dirty = true;
-		std::function<void(entt::registry&)> on_hovered;
 
 		void update_fill(entt::registry& reg, entt::entity e) {
 			if (!dirty) return;
@@ -62,36 +63,33 @@ namespace meatengine::ui {
 	};
 
 	struct Label {
-		sf::Text sf_text;
+		std::optional<sf::Text> sf_text;
 
 		bool dirty = true;
 
 		void update_fill(entt::registry& reg, entt::entity e) {
+			if (!sf_text.has_value()) return;
 			if (auto* fr = reg.try_get<FillRect>(e)) {
 				if (!dirty) return;
 				if (!fr->stylebox) return;
 	
 				if (reg.all_of<Disabled>(e))
-					sf_text.setFillColor(fr->stylebox->get_value<sf::Color>("font_disabled_color", sf::Color::White));
+					sf_text->setFillColor(fr->stylebox->get_value<sf::Color>("font_disabled_color", sf::Color::White));
 				else if (reg.all_of<Pressed>(e))
-					sf_text.setFillColor(fr->stylebox->get_value<sf::Color>("font_pressed_color", sf::Color::White));
+					sf_text->setFillColor(fr->stylebox->get_value<sf::Color>("font_pressed_color", sf::Color::White));
 				else if (reg.all_of<Hovered>(e))
-					sf_text.setFillColor(fr->stylebox->get_value<sf::Color>("font_hovered_color", sf::Color::White));
+					sf_text->setFillColor(fr->stylebox->get_value<sf::Color>("font_hovered_color", sf::Color::White));
 				else 
-					sf_text.setFillColor(fr->stylebox->get_value<sf::Color>("font_color", sf::Color::White));
+					sf_text->setFillColor(fr->stylebox->get_value<sf::Color>("font_color", sf::Color::White));
 			
 			}
 
 			dirty = false;			
 		}
 
+		Label() = default; 
 		Label(meatengine::Font& font) : sf_text(font.res) { }
 	};
-
-	struct Button {
-		std::function<void(entt::registry&)> on_pressed;
-	};
-
 
 	struct Container {
 

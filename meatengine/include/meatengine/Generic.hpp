@@ -7,6 +7,7 @@
 #include <entt/entt.hpp>
 #include <unordered_set>
 
+
 struct InputState {
     sf::Vector2f mouse_pos;
     bool mouse_down = false;

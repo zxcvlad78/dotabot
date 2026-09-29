@@ -6,20 +6,18 @@
 #include <meatengine/ResourceLoader.hpp>
 #include <meatengine/Resources.hpp>
 
+#include <entt/entt.hpp>
 
 namespace meatengine {
     class ScriptingServer {
     private:
-        static sol::state lua_;
-        //static bool initialized = false;
+        static sol::state lua_state;
     public:
         ScriptingServer() = delete;
 
 		static bool run_file(std::string_view path);
 		static bool run_string(std::string_view code);
 
-		static sol::state& lua() { return lua_; }
+		static sol::state& lua();
     };
-
-
 } // namespace meatengine

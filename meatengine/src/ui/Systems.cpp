@@ -15,9 +15,6 @@ namespace meatengine::ui::Systems {
             
 		}
 
-		for (auto [e, fr, l, b] : reg.view<FillRect, Label, Button>().each()) {
-            
-		}
 	};
 
     void render(entt::registry& reg, sf::RenderWindow& window) {
@@ -46,35 +43,31 @@ namespace meatengine::ui::Systems {
         for (auto [e, l] : reg.view<Label>().each()) {
             auto* t = reg.try_get<Transform>(e);
             if (!t) continue;
-            l.sf_text.setPosition(t->position);
-            l.sf_text.setRotation(t->rotation_degrees);
-            l.sf_text.setScale(t->scale);
-            window.draw(l.sf_text);
+            l.sf_text->setPosition(t->position);
+            l.sf_text->setRotation(t->rotation_degrees);
+            l.sf_text->setScale(t->scale);
+            window.draw(*l.sf_text);
         }
     }
 
     void process_events(entt::registry& reg, const sf::RenderWindow& window) {
 		auto& in = reg.ctx().get<InputState>();
 
-        for (auto [e, fr] : reg.view<FillRect, Interactable>().each()) {
+        for (auto [e, fr, itr] : reg.view<FillRect, Interactable>().each()) {
             if (reg.all_of<Disabled>(e)) {
-                if (reg.all_of<Hovered>(e)) {
-                    reg.remove<Hovered>(e);
-                }
+                if (reg.all_of<Hovered>(e)) reg.remove<Hovered>(e);
+                if (reg.all_of<Pressed>(e)) reg.remove<Pressed>(e);
                 continue;
             }
+
             bool hit = fr.shape.getGlobalBounds().contains(in.mouse_pos);
             bool was = reg.all_of<Hovered>(e);
             if (hit && !was) {
                 reg.emplace_or_replace<Hovered>(e);
-                if (fr.on_hovered) fr.on_hovered(reg);
+                if (itr.on_hovered) itr.on_hovered(reg);
             } else if (!hit && was) {
                 reg.remove<Hovered>(e);
             }
-        }
-
-        for (auto [e, fr, btn] : reg.view<FillRect, Button>().each()) {
-            if (reg.all_of<Disabled>(e)) continue;
 
             bool hovered = reg.all_of<Hovered>(e);
             bool pressed = reg.all_of<Pressed>(e);
@@ -86,7 +79,7 @@ namespace meatengine::ui::Systems {
 			
             if (pressed && !in.mouse_down) {
                 reg.remove<Pressed>(e);
-                if (hovered && btn.on_pressed) btn.on_pressed(reg);
+                if (hovered && itr.on_pressed) itr.on_pressed(reg);
             }
 
         }

@@ -29,7 +29,7 @@ public:
                 fill_rect.stylebox = meatengine::ResourceLoader::load<meatengine::StyleBox>("res/styleboxes/default.json");
             }
 
-            auto& button = registry.emplace<meatengine::ui::Button>(entity); {
+            auto& button = registry.emplace<meatengine::ui::Interactable>(entity); {
                 button.on_pressed = [this](entt::registry& r) {
                     click_count++;
                     std::cout << "clicked!!!! " << (int)click_count << std::endl;
@@ -38,7 +38,7 @@ public:
             auto& label = registry.emplace<meatengine::ui::Label>(entity,
                 meatengine::ResourceLoader::load<meatengine::Font>("res/fonts/mainfont.ttf")
             ); {
-                label.sf_text.setString("Buuttttioon!");
+                label.sf_text->setString("Buuttttioon!");
             }
 		}
 
@@ -53,8 +53,8 @@ public:
             auto& label = registry.emplace<meatengine::ui::Label>(hero_label_entity,
                 meatengine::ResourceLoader::load<meatengine::Font>("res/fonts/mainfont.ttf")
             ); {
-                label.sf_text.setCharacterSize(16);
-                label.sf_text.setString("Hero Name: \nHero Level: ");
+                label.sf_text->setCharacterSize(16);
+                label.sf_text->setString("Hero Name: \nHero Level: ");
             }
 
         }
@@ -70,7 +70,7 @@ public:
         if (registry.valid(hero_label_entity)) {
             if (registry.all_of<meatengine::ui::Label>(hero_label_entity)) {
                 auto& label = registry.get<meatengine::ui::Label>(hero_label_entity);
-                label.sf_text.setString(
+                label.sf_text->setString(
                     "Hero Name: " + DotaGSIData::Hero::get_name(snapshot) + "\n" +
                     "Hero Level: " + std::to_string(DotaGSIData::Hero::get_level(snapshot)) + "\n"
                 );

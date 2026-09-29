@@ -1,44 +1,52 @@
 #include <meatengine/ScriptingServer.hpp>
+#include <meatengine/lua_bindings/common.hpp>
 
 #include <iostream>
 
 namespace meatengine {
+    sol::state ScriptingServer::lua_state;
 
-sol::state ScriptingServer::lua_;
+    static void ensure_initialized() {
+        static bool inited = false;
+        if (inited) return;
+        inited = true;
 
-static void ensure_initialized() {
-    static bool inited = false;
-    if (inited) return;
-    inited = true;
+        auto& lua = ScriptingServer::lua();
 
-    ScriptingServer::lua().open_libraries(
-        sol::lib::base,
-        sol::lib::math,
-        sol::lib::string,
-        sol::lib::table
-    );
-}
+        lua.open_libraries(
+            sol::lib::base,
+            sol::lib::math,
+            sol::lib::string,
+            sol::lib::table
+        );
 
-bool ScriptingServer::run_file(std::string_view path) {
-    ensure_initialized();
-    try {
-        lua_.safe_script_file(std::string(path));
-        return true;
-    } catch (const sol::error& e) {
-        std::cerr << "[lua] " << e.what() << '\n';
-        return false;
+        lua_bindings::init(lua);
     }
-}
 
-bool ScriptingServer::run_string(std::string_view code) {
-    ensure_initialized();
-    try {
-        lua_.safe_script(std::string(code));
-        return true;
-    } catch (const sol::error& e) {
-        std::cerr << "[lua] " << e.what() << '\n';
-        return false;
+    bool ScriptingServer::run_file(std::string_view path) {
+        ensure_initialized();
+        try {
+            lua_state.safe_script_file(std::string(path));
+            return true;
+        } catch (const sol::error& e) {
+            std::cerr << "[ScriptingServer] " << e.what() << '\n';
+            return false;
+        }
     }
-}
 
+    bool ScriptingServer::run_string(std::string_view code) {
+        ensure_initialized();
+        try {
+            lua_state.safe_script(std::string(code));
+            return true;
+        } catch (const sol::error& e) {
+            std::cerr << "[ScriptingServer] " << e.what() << '\n';
+            return false;
+        }
+    }
+
+    sol::state& ScriptingServer::lua() {
+        ensure_initialized();
+        return lua_state;
+    }
 } // namespace meatengine

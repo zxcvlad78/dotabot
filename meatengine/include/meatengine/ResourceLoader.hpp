@@ -66,5 +66,15 @@ namespace meatengine {
             }
             return entt::resource<T>{nullptr};
         }
+
+        template<typename T>
+        static std::shared_ptr<T> find_handle(const T* raw) {
+            if (!raw) return nullptr;
+            auto& cache = get_cache<T>();
+            for (auto& [id, ptr] : cache.map) {
+                if (ptr.get() == raw) return ptr;
+            }
+            return nullptr;
+        }
     };
 }

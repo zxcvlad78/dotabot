@@ -7,6 +7,20 @@
 #include <meatengine/console/commands.hpp>
 
 namespace meatengine {
+    static int lua_print(lua_State* L) {
+        int n = lua_gettop(L);
+        std::string result;
+        for (int i = 1; i <= n; ++i) {
+            size_t len = 0;
+            const char* s = luaL_tolstring(L, i, &len);
+            if (i > 1) result += '\t';
+            result.append(s, len);
+            lua_pop(L, 1);
+        }
+        Console::get_instance().print(result);
+        return 0;
+    }
+
     Console& Console::get_instance() {
         static Console instance;
         return instance;
@@ -95,6 +109,7 @@ namespace meatengine {
     }
 
     void Console::init(meatengine::MainLoop& main_loop, sf::Font& f, uint16_t character_size) {
+        ScriptingServer::lua().set_function("print", lua_print);
         load_cfg(main_loop.get_window());
         load_history();
         font_ptr = &f;
