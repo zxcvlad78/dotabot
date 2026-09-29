@@ -22,6 +22,27 @@ namespace meatengine {
         }
 
     public:
+        template<typename T>
+        static std::shared_ptr<T>& default_handle() {
+            static std::shared_ptr<T> h;
+            return h;
+        }
+
+        template<typename T>
+        static void set_default(const entt::resource<T>& res) {
+            default_handle<T>() = res.handle();
+        }
+
+        template<typename T>
+        static std::shared_ptr<T> get_default() {
+            return default_handle<T>();
+        }
+
+        template<typename T>
+        static bool has_default() {
+            return static_cast<bool>(default_handle<T>());
+        }
+        
         template<typename T, typename... Args>
         static entt::resource<T> load(Args&&... args) {
             auto& cache = get_cache<T>();

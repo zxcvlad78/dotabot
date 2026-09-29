@@ -112,7 +112,7 @@ namespace meatengine {
 
     struct StyleBox {
         using result_type = std::shared_ptr<StyleBox>;
-        
+
         json data;
         
         template<typename T>
