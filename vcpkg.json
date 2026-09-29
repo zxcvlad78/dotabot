@@ -1,0 +1,12 @@
+{
+  "name": "godlike",
+  "version-string": "0.0.1",
+  "dependencies": [
+    "sfml",
+    "entt",
+    "termcolor",
+    "nlohmann-json",
+    "gamenetworkingsockets",
+    "cpp-httplib"
+  ]
+}

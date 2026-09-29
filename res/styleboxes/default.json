@@ -1,0 +1,14 @@
+{
+	"background_color": [255, 255, 255],
+	"foreground_color": [192, 192, 192],
+	"disabled_color": [192, 192, 192, 127],
+	"hovered_color": [210, 210, 210],
+	"outline_thickness": 2.0,
+	"outline_color": [0, 0, 0],
+	"pressed_color": [160, 160, 160],
+
+	"font_color": [10, 10, 10],
+	"font_disabled_color": [128, 128, 128, 180],
+	"font_hovered_color": [5, 5, 5],
+	"font_pressed_color": [0, 0, 0]
+}

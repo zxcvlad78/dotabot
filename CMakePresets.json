@@ -1,0 +1,41 @@
+{
+	"version": 3,
+	"configurePresets": [
+		{
+			"name": "ninja-debug",
+			"displayName": "Ninja Debug",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build/Debug",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_MAKE_PROGRAM": "$env{NINJA_ROOT}/ninja.exe",
+				"CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_INSTALL_OPTIONS": "--x-abi-tools-use-exact-versions"
+			}
+		},
+		{
+			"name": "ninja-release",
+			"displayName": "Ninja Release",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build/Release",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_MAKE_PROGRAM": "$env{NINJA_ROOT}/ninja.exe",
+				"CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_INSTALL_OPTIONS": "--x-abi-tools-use-exact-versions"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "build-debug",
+			"configurePreset": "ninja-debug",
+			"configuration": "Debug"
+		},
+		{
+			"name": "build-release",
+			"configurePreset": "ninja-release",
+			"configuration": "Release"
+		}
+	]
+}
