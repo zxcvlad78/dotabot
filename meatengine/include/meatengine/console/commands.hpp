@@ -125,6 +125,19 @@ namespace meatengine::console_commands {
             "Set time speed multiplier",
             "speed <float>"
         );
+        Console::get_instance().register_command(
+            "lua.run",
+            [](const std::vector<std::string>& args) {
+                if (args.size() != 1) return;
+                try {
+                    meatengine::ScriptingServer::run_file(args[0]);
+                } catch (const std::exception& e) {
+                    Console::get_instance().print_error(e.what());
+                }
+            },
+            "Run lua script",
+            "lua.run <path/to/script.lua>"
+        );
 
         // Test
         // for (uint8_t i = 0; i < 25; i ++) {

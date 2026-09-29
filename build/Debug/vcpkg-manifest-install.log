@@ -1,1 +1,72 @@
-error: this vcpkg instance requires a manifest with a specified baseline in order to interact with ports. Please add 'builtin-baseline' to the manifest or add a 'vcpkg-configuration.json' that redefines the default registry.
+Detecting compiler hash for triplet x64-windows...
+Compiler found: Z:/vsbuildtools/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/cl.exe
+The following packages are already installed:
+  * abseil:x64-windows@20260107.1#3
+  * brotli:x64-windows@1.2.0
+  * bzip2[core,tool]:x64-windows@1.0.8#6
+    cpp-httplib[core,brotli]:x64-windows@0.51.0
+  * egl-registry:x64-windows@2025-05-27
+    entt:x64-windows@3.16.0
+  * freetype[core,zlib,png,bzip2,brotli]:x64-windows@2.14.3
+    gamenetworkingsockets[core,ice]:x64-windows@1.6.0
+  * libflac[core,stack-protector]:x64-windows@1.5.0
+  * libogg:x64-windows@1.3.6#1
+  * libpng:x64-windows@1.6.58
+  * libvorbis:x64-windows@1.3.7#4
+  * miniaudio:x64-windows@0.11.25
+    nlohmann-json:x64-windows@3.12.0#2
+  * opengl:x64-windows@2022-12-04#3
+  * opengl-registry:x64-windows@2026-01-26
+  * openssl:x64-windows@3.6.3
+  * protobuf:x64-windows@6.33.4#2
+    sfml[core,window,network,graphics,audio]:x64-windows@3.0.2
+  * stb:x64-windows@2024-07-29#1
+    termcolor:x64-windows@2.1.0
+  * utf8-range:x64-windows@6.33.4
+  * vcpkg-cmake:x64-windows@2024-04-23
+  * vcpkg-cmake-config:x64-windows@2026-07-21
+  * vcpkg-cmake-get-vars:x64-windows@2025-05-29
+  * zlib:x64-windows@1.3.2#1
+cpp-httplib provides CMake targets:
+
+    find_package(httplib CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE httplib::httplib)
+
+entt provides CMake targets:
+
+    find_package(EnTT CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE EnTT::EnTT)
+
+gamenetworkingsockets provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(GameNetworkingSockets CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE GameNetworkingSockets::shared GameNetworkingSockets::static GameNetworkingSockets::GameNetworkingSockets)
+
+The package nlohmann-json provides CMake targets:
+
+    find_package(nlohmann_json CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE nlohmann_json::nlohmann_json)
+
+The package nlohmann-json can be configured to not provide implicit conversions via a custom triplet file:
+
+    set(nlohmann-json_IMPLICIT_CONVERSIONS OFF)
+
+For more information, see the docs here:
+    
+    https://json.nlohmann.me/api/macros/json_use_implicit_conversions/
+
+The package sfml provides CMake targets:
+
+    find_package(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE SFML::Network SFML::Graphics SFML::Window SFML::Audio SFML::System)
+
+    # If you want SFML to provide an implementation of main():
+    target_link_libraries(main PRIVATE SFML::Main)
+
+termcolor is header-only and can be used from CMake via:
+
+  find_path(TERMCOLOR_INCLUDE_DIRS "termcolor/termcolor.hpp")
+  target_include_directories(main PRIVATE ${TERMCOLOR_INCLUDE_DIRS})
+
+All requested installations completed successfully in: 764 us

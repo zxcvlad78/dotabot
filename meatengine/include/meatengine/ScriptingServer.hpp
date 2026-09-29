@@ -10,15 +10,15 @@
 namespace meatengine {
     class ScriptingServer {
     private:
-        sol::state lua_;
-
+        static sol::state lua_;
+        //static bool initialized = false;
     public:
         ScriptingServer() = delete;
 
-		bool run_file(std::string_view path);
-		bool run_string(std::string_view code);
+		static bool run_file(std::string_view path);
+		static bool run_string(std::string_view code);
 
-		sol::state& lua() { return lua_; }
+		static sol::state& lua() { return lua_; }
     };
 
 

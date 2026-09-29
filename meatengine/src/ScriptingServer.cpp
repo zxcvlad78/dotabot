@@ -4,25 +4,23 @@
 
 namespace meatengine {
 
-ScriptingServer::ScriptingServer() {
-    lua_.open_libraries(sol::lib::base,
-                        sol::lib::math,
-                        sol::lib::string,
-                        sol::lib::table);
+sol::state ScriptingServer::lua_;
 
-    // lua_.set_function("cpp_add", lua_add);
+static void ensure_initialized() {
+    static bool inited = false;
+    if (inited) return;
+    inited = true;
 
-    // lua_.new_usertype<Player>("Player",
-    //     sol::constructors<Player()>(),
-    //     "health",      &Player::health,
-    //     "x",           &Player::x,
-    //     "y",           &Player::y,
-    //     "move",        &Player::move,
-    //     "take_damage", &Player::take_damage
-    // );
+    ScriptingServer::lua().open_libraries(
+        sol::lib::base,
+        sol::lib::math,
+        sol::lib::string,
+        sol::lib::table
+    );
 }
 
 bool ScriptingServer::run_file(std::string_view path) {
+    ensure_initialized();
     try {
         lua_.safe_script_file(std::string(path));
         return true;
@@ -33,6 +31,7 @@ bool ScriptingServer::run_file(std::string_view path) {
 }
 
 bool ScriptingServer::run_string(std::string_view code) {
+    ensure_initialized();
     try {
         lua_.safe_script(std::string(code));
         return true;

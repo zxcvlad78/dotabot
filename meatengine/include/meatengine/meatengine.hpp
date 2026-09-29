@@ -7,6 +7,8 @@
 #include<meatengine/parsing.hpp>
 #include<meatengine/rng.hpp>
 
+#include<meatengine/ScriptingServer.hpp>
+
 #include<meatengine/ui/Components.hpp>
 #include<meatengine/ui/Systems.hpp>
 
