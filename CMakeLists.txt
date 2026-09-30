@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_subdirectory(meatengine)
-find_package(httplib CONFIG REQUIRED)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
@@ -23,7 +22,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE 
     meatengine::meatengine
-    httplib::httplib
 )
 
 

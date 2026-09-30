@@ -10,5 +10,5 @@
 	"font_color": [10, 10, 10],
 	"font_disabled_color": [128, 128, 128, 180],
 	"font_hovered_color": [5, 5, 5],
-	"font_pressed_color": [0, 0, 0]
+	"font_pressed_color": [255, 255, 255]
 }

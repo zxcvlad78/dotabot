@@ -6,7 +6,6 @@
     "entt",
     "termcolor",
     "nlohmann-json",
-    "gamenetworkingsockets",
-    "cpp-httplib"
+    "gamenetworkingsockets"
   ]
 }
