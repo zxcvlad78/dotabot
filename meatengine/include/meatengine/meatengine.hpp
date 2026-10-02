@@ -27,3 +27,5 @@
 #include<meatengine/camera/Systems.hpp>
 #include<meatengine/timer/Components.hpp>
 #include<meatengine/timer/Systems.hpp>
+#include<meatengine/tilemap/Components.hpp>
+#include<meatengine/tilemap/Systems.hpp>

@@ -4,7 +4,7 @@
 #include "GodLike.hpp"
 
 int main() {
-	auto main_font = meatengine::ResourceLoader::load<meatengine::Font>("res/font/mainfont.ttf");
+	auto main_font = meatengine::ResourceLoader::load<meatengine::Font>("res/fonts/mainfont.ttf");
 	meatengine::ResourceLoader::set_default<meatengine::Font>(main_font);
 
 	auto main_stylebox = meatengine::ResourceLoader::load<meatengine::StyleBox>("res/styleboxes/default.ttf");

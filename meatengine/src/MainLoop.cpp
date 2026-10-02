@@ -12,6 +12,8 @@
 #include <meatengine/sprite/Systems.hpp>
 #include <meatengine/camera/Systems.hpp>
 #include <meatengine/timer/Systems.hpp>
+#include <meatengine/tilemap/Systems.hpp>
+#include <meatengine/systems/Common.hpp>
 
 #include <meatengine/ScriptingServer.hpp>
 
@@ -39,7 +41,9 @@ namespace meatengine {
     float MainLoop::get_framerate_limit() { return m_target_fps; }
 
     void MainLoop::update_engine(float dt) {
+        meatengine::systems::movement(m_registry, dt);
         TimerSystems::update(m_registry, dt);
+        TileMapSystems::update(m_registry);
         SpriteSystems::update(m_registry, m_window, dt);
         meatengine::ui::Systems::process_events(m_registry, m_window);
 		meatengine::ui::Systems::update(m_registry);
@@ -50,7 +54,6 @@ namespace meatengine {
 
     void MainLoop::render_engine() {
         RenderSystems::render(m_registry, m_window);
-        meatengine::Console::get_instance().render(m_window);
     }
 
     MainLoop::MainLoop(const std::string& title, sf::VideoMode default_mode) 
@@ -152,6 +155,10 @@ namespace meatengine {
             m_current_state->render_deferred(m_window, m_registry, scaled_dt);
 
             m_window.setView(m_window.getDefaultView());
+            meatengine::Console::get_instance().render(m_window);
+
+
+
             m_window.display();
         }
     }

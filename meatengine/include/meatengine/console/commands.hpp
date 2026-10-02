@@ -128,21 +128,29 @@ namespace meatengine::console_commands {
         Console::get_instance().register_command(
             "lua.run",
             [](const std::vector<std::string>& args) {
-                if (args.size() != 1) return;
-                const std::string& text = args.at(0);
+                //if (args.size() != 1) return;
                 try {
-                    if (text.starts_with("path:")) {
+                    const std::string& text = args.at(0);
+                    if (text.starts_with("path::")) {
                         std::string path = text;
-                        path.erase(0, 5);
+                        path.erase(0, 6);
                         meatengine::ScriptingServer::run_file(path);
                     }
-                    else meatengine::ScriptingServer::run_string(text);;
+                    else {
+                        std::string total_string;
+                        for(std::string s : args) total_string.append(s + " ");
+                        //total_string.erase(-1);
+
+                        std::cout << total_string << std::endl;
+
+                        meatengine::ScriptingServer::run_string(total_string);
+                    }
                 } catch (const std::exception& e) {
                     Console::get_instance().print_error(e.what());
                 }
             },
-            "Run lua script",
-            "lua.run <path/to/script.lua>"
+            "Run lua script/string",
+            "(run script) lua.run <path::path/to/script.lua>\n(run string) lua.run <script string>"
         );
 
 

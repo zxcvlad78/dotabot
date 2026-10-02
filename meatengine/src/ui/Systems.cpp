@@ -34,7 +34,7 @@ namespace meatengine::ui::Systems {
             if (!t) continue;
 
             fr.shape.setPosition(t->position);
-            fr.shape.setRotation(t->rotation_degrees);
+            fr.shape.setRotation(t->rotation);
             fr.shape.setScale(t->scale);
 
             window.draw(fr.shape);
@@ -44,7 +44,7 @@ namespace meatengine::ui::Systems {
             auto* t = reg.try_get<Transform>(e);
             if (!t) continue;
             l.sf_text->setPosition(t->position);
-            l.sf_text->setRotation(t->rotation_degrees);
+            l.sf_text->setRotation(t->rotation);
             l.sf_text->setScale(t->scale);
             window.draw(*l.sf_text);
         }

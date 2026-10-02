@@ -15,6 +15,10 @@ struct InputState {
     bool mouse_just_released = false;
 };
 
+struct WindowState {
+
+};
+
 struct ChildOf { entt::entity entity; };
 struct ParentOf { entt::entity entity; };
 
@@ -69,13 +73,13 @@ namespace Generic::updating {
 
 struct Transform {
     sf::Vector2f position;
-    sf::Angle rotation_degrees;
+    sf::Angle rotation;
     sf::Vector2f scale = {1.f, 1.f};
 
     Transform& operator=(const Transform& t) {
         if (this != &t) {
             position = t.position;
-            rotation_degrees = t.rotation_degrees;
+            rotation = t.rotation;
             scale = t.scale;
         }
         return *this;
@@ -84,7 +88,7 @@ struct Transform {
     Transform& operator=(const Transform* t) {
         if (t != nullptr && this != t) {
             position = t->position;
-            rotation_degrees = t->rotation_degrees;
+            rotation = t->rotation;
             scale = t->scale;
         }
         return *this;
@@ -106,7 +110,7 @@ struct Transform {
             if (registry.all_of<Transform>(*it)) {
                 const auto& t = registry.get<Transform>(*it);
                 sft.translate(t.position);
-                sft.rotate(t.rotation_degrees);
+                sft.rotate(t.rotation);
                 sft.scale(t.scale);
             }
         }
@@ -127,8 +131,8 @@ struct Offset {
 };
 
 struct Velocity {
-    float x = 0.0f;
-    float y = 0.0f;
+    sf::Vector2f linear;
+    float angular;
     bool normalize = true;
 };
 

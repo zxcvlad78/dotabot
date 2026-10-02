@@ -54,7 +54,7 @@ namespace SpriteSystems {
             sf::Transform global_transform = Transform::get_global(registry, entity);
             sf::Vector2f global_pos = global_transform.transformPoint({0.f, 0.f});
 
-            sf::Angle global_rotation = transform.rotation_degrees;
+            sf::Angle global_rotation = transform.rotation;
             sf::Vector2f global_scale = transform.scale;
 
             Renderable renderable;

@@ -6,3 +6,4 @@ world:for_each_FillRect(function(entity, fr)
 	end
 end)
 
+get_global_registry():for_each_TileMap(function(entity,tm)tm.dirty=true end)

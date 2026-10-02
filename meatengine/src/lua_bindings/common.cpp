@@ -54,18 +54,60 @@ void init_common(sol::state& lua) {
         )
     );
 
+    auto camera_ut = lua.new_usertype<Camera>("Camera",
+        sol::constructors<Camera()>(),
+        "zoom", &Camera::zoom,
+        "smooth", &Camera::smooth
+    );
+
+	camera_ut.set_function("is_current", &Camera::is_current);
+    camera_ut.set_function("set_current", &Camera::set_current);
+    camera_ut.set_function("make_current", &Camera::make_current);
+    camera_ut.set_function("get_current", &Camera::get_current);
+
+    auto tilemap_ut = lua.new_usertype<TileMap>("TileMap",
+        sol::constructors<TileMap()>(),
+        "origin_x", &TileMap::origin_x,
+        "origin_y", &TileMap::origin_y,
+        "width", &TileMap::width,
+        "height", &TileMap::height,
+        "dirty", &TileMap::dirty,
+        "tiles", &TileMap::tiles,
+        "tileset", sol::property(
+            [](TileMap& tm) -> meatengine::TileSet* {
+                auto h = tm.tileset.handle();
+                return h ? h.get() : nullptr;
+            },
+            [](TileMap& tm, meatengine::TileSet& ts) {
+                auto sp = meatengine::ResourceLoader::find_handle(&ts);
+                if (!sp) {
+                    throw std::runtime_error(
+                        "TileMap.tileset: TileSet not from ResourceLoader "
+                        "(load it via ResourceLoader.load_tileset first)");
+                }
+                tm.tileset = entt::resource<meatengine::TileSet>{sp};
+                tm.dirty = true;
+            }
+        )
+    );
+
+	tilemap_ut.set_function("load_tiles", &TileMap::load_tiles);
+    tilemap_ut.set_function("set_tile", &TileMap::set_tile);
+    tilemap_ut.set_function("get_tile", &TileMap::get_tile);
+
     lua.new_usertype<Transform>("Transform",
         sol::constructors<Transform()>(),
         "position", &Transform::position,
-        "rotation", &Transform::rotation_degrees,
+        "rotation", &Transform::rotation,
 		"scale", &Transform::scale
     );
 
     lua.new_usertype<Velocity>("Velocity",
         sol::constructors<Velocity()>(),
-        "x", &Velocity::x,
-        "y", &Velocity::y
+        "linear", &Velocity::linear,
+        "angular", &Velocity::angular
     );
+
 
     lua.new_usertype<meatengine::ui::FillRect>("FillRect",
         sol::constructors<meatengine::ui::FillRect()>(),
@@ -129,6 +171,7 @@ void init_common(sol::state& lua) {
 
     register_component<Transform>(reg_type, "Transform");
     register_component<Velocity>(reg_type, "Velocity");
+    register_component<TileMap>(reg_type, "TileMap");
     register_component<meatengine::ui::FillRect>(reg_type, "FillRect");
 	register_component<meatengine::ui::Label>(reg_type, "Label");
     register_component<meatengine::ui::Interactable>(reg_type, "Interactable");
