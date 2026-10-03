@@ -172,6 +172,7 @@ void init_common(sol::state& lua) {
     register_component<Transform>(reg_type, "Transform");
     register_component<Velocity>(reg_type, "Velocity");
     register_component<TileMap>(reg_type, "TileMap");
+    register_component<Camera>(reg_type, "Camera");
     register_component<meatengine::ui::FillRect>(reg_type, "FillRect");
 	register_component<meatengine::ui::Label>(reg_type, "Label");
     register_component<meatengine::ui::Interactable>(reg_type, "Interactable");

@@ -19,7 +19,7 @@ namespace meatengine {
         void reset() { start = 0; end = 0; }
         bool is_active() const { return start != end; }
         int get_start() const { return std::min(start, end); }
-        int get_end()   const { return std::max(start, end); }
+        int get_end() const { return std::max(start, end); }
     };
 
     class Console {
@@ -31,8 +31,10 @@ namespace meatengine {
             std::string usage;
         };
 
+        std::string history_file_path = "user://console/history.txt";
+
         TextSelection text_selection;
-        ConfigFile* config_file = new ConfigFile("console.cfg");
+        ConfigFile* config_file = new ConfigFile("user://console/config.cfg");
         bool echo_mode = true;
 
         static Console& get_instance();

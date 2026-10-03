@@ -16,9 +16,6 @@ namespace meatengine {
         ConfigFile() = default;
         ConfigFile(std::string save_path) : _save_path(save_path) { }
 
-        static std::string get_user_config_dir(const std::string& app_name = "MeatEngine");
-        static std::string get_full_path(const std::string& path);
-
         void set_save_path(const std::string& new_path);
         std::string get_save_path() const;
 

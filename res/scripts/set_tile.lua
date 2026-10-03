@@ -4,4 +4,4 @@ get_global_registry():for_each_TileMap(function(entity,tm)
 end)
 --print("enddd")
 
--- lua.run get_global_registry():for_each_TileMap(function(entity, tm) tm:set_tile(22, 0) end)
+-- lua.run get_global_registry():for_each_TileMap(function(entity, tm) tm:set_tile(0, 0, 0) end)

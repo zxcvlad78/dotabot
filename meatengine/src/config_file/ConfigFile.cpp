@@ -1,38 +1,8 @@
 #include <meatengine/config_file/ConfigFile.hpp>
+#include <meatengine/FileSystem.hpp>
 #include <filesystem>
 
 namespace meatengine {
-
-    std::string ConfigFile::get_user_config_dir(const std::string& app_name) {
-            std::string base;
-    #ifdef _WIN32
-            const char* appdata = std::getenv("APPDATA");
-            if (appdata) base = std::string(appdata) + "/" + app_name + "/";
-            else base = "./";
-    #elif defined(__APPLE__)
-            const char* home = std::getenv("HOME");
-            if (home) base = std::string(home) + "/Library/Application Support/" + app_name + "/";
-            else base = "./";
-    #else
-            const char* xdg = std::getenv("XDG_CONFIG_HOME");
-            const char* home = std::getenv("HOME");
-            if (xdg) base = std::string(xdg) + "/" + app_name + "/";
-            else if (home) base = std::string(home) + "/.config/" + app_name + "/";
-            else base = "./";
-    #endif
-            std::filesystem::create_directories(base);
-            return base;
-        }
-
-    std::string ConfigFile::get_full_path(const std::string& path) {
-        std::filesystem::path p(path);
-        if (p.is_absolute()) {
-            return path;
-        }
-        
-        return (std::filesystem::path(get_user_config_dir()) / path).string();
-    }
-
     void ConfigFile::set_save_path(const std::string& new_path) { _save_path = new_path; }
     std::string ConfigFile::get_save_path() const { return _save_path; }
 
@@ -51,8 +21,8 @@ namespace meatengine {
 
     bool ConfigFile::load(const std::string& path) {
         std::string full_path;
-        if (path.empty()) full_path = get_full_path(_save_path);
-        else full_path = get_full_path(path);
+        if (path.empty()) full_path = me::FileSystem::get_full_path(_save_path);
+        else full_path = me::FileSystem::get_full_path(path);
 
         if (!std::filesystem::exists(full_path)) {
             return false;
@@ -77,8 +47,8 @@ namespace meatengine {
 
     bool ConfigFile::save(const std::string& path) const {
         std::string full_path;
-        if (path.empty()) full_path = get_full_path(_save_path);
-        else full_path = get_full_path(path);
+        if (path.empty()) full_path = me::FileSystem::get_full_path(_save_path);
+        else full_path = me::FileSystem::get_full_path(path);
 
         std::ofstream file(full_path);
         if (!file.is_open())

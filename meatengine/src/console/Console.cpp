@@ -5,6 +5,7 @@
 #include <cctype>
 #include <meatengine/parsing.hpp>
 #include <meatengine/console/commands.hpp>
+#include <meatengine/FileSystem.hpp>
 
 namespace meatengine {
     static int lua_print(lua_State* L) {
@@ -27,30 +28,37 @@ namespace meatengine {
     }
 
     void Console::save_history() {
-        std::string str_history;
+        std::string out;
+        out.reserve(command_history.size() * 32);
 
-        int history_size = command_history.size();
-        if (history_size == 0) return;
-
-        for (int i = 0; i < command_history.size(); i++) {
-            str_history += command_history.at(i) + ',';
+        for (const auto& cmd : command_history) {
+            for (char c : cmd) out += (c == '\n' || c == '\r') ? ' ' : c;
+            out += '\n';
         }
-        str_history.erase(str_history.size()-1);
 
-        config_file->set("history", str_history);
-        config_file->save();
+        const std::string path = history_file_path;
+        me::FileSystem::save_file(path, out);
     }
 
     void Console::load_history() {
-        std::string str_history = config_file->get("history", "");
-        if (str_history.empty()) return;
+        command_history.clear();
 
-        std::stringstream stream(str_history);
-        std::string command;
-
-        while (std::getline(stream, command, ',')) {
-            if (!command.empty()) command_history.push_back(command);
+        std::string data;
+        if (!me::FileSystem::get_file_text(history_file_path, data)) {
+            history_index = -1;
+            return;
         }
+
+        std::istringstream stream(data);
+        std::string line;
+        while (std::getline(stream, line)) {
+            if (!line.empty()) command_history.push_back(std::move(line));
+        }
+
+        while (command_history.size() > max_history)
+            command_history.pop_front();
+
+        history_index = -1;
     }
 
     void Console::update_ui_cfg(sf::RenderWindow& window) {
