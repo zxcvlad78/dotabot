@@ -3,7 +3,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-namespace meatengine::BBCode {
+namespace me::BBCode {
     struct TextFragment {
         std::string text;
         sf::Color color;
@@ -22,4 +22,4 @@ namespace meatengine::BBCode {
     };
 
     std::vector<TextFragment> parse(const std::string& input, unsigned int default_size = 16);
-} // namespace meatengine::BBCode
+} // namespace me::BBCode

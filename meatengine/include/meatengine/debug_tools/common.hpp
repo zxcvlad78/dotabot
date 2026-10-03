@@ -2,7 +2,7 @@
 #include <chrono>
 #include <utility>
 
-namespace meatengine {
+namespace me {
 	template <typename F, typename... Args>
 	inline double bench_func(F&& func, Args&&... args) {
 		auto start = std::chrono::high_resolution_clock::now();

@@ -5,8 +5,7 @@
 
 #undef max
 
-namespace meatengine {
-
+namespace me {
     class SoundPlayer {
     private:
         inline static sf::SoundBuffer dummy_buffer;
@@ -85,4 +84,4 @@ namespace meatengine {
     // std::vector<SoundPlayer::Slot> SoundPlayer::pool;
     // bool SoundPlayer::initialized = false;
 
-} // namespace meatengine
+} // namespace me

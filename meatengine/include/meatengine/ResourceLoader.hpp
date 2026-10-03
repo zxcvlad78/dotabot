@@ -7,7 +7,7 @@
 #include <memory>
 #include <utility>
 
-namespace meatengine {
+namespace me {
     class ResourceLoader {
     private:
         template<typename T>

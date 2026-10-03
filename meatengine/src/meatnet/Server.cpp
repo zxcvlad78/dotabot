@@ -2,7 +2,7 @@
 #include <cassert>
 #include <cstdio>
 
-namespace MeatNet {
+namespace me::net {
 
 Server* Server::s_pCallbackInstance = nullptr;
 

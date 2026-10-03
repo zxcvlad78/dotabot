@@ -3,23 +3,23 @@
 #include <meatengine/meatengine.hpp>
 #include <godlike/godlike.hpp>
 
-class GodLike : public meatengine::GameState {
+class GodLike : public me::GameState {
 public:
     void on_enter(sf::RenderWindow& window, entt::registry& registry) override {
         {auto entity = registry.create(); // player
-            auto& transform = registry.emplace<Transform>(entity);
-            registry.emplace<Velocity>(entity);
+            auto& transform = registry.emplace<me::Transform>(entity);
+            registry.emplace<me::Velocity>(entity);
             registry.emplace<godlike::components::PlayerInput>(entity);
             registry.emplace<godlike::components::MoveSpeed>(entity);
-            auto& camera = registry.emplace<Camera>(entity); {
+            auto& camera = registry.emplace<me::Camera>(entity); {
                 camera.zoom = 2.f;
             }
         }
 
         {auto entity = registry.create();
-            registry.emplace<Transform>(entity);
-            auto& tilemap = registry.emplace<meatengine::TileMap>(entity); {
-                tilemap.tileset = meatengine::ResourceLoader::load<meatengine::TileSet>("res/tilesets/tileset.json");
+            registry.emplace<me::Transform>(entity);
+            auto& tilemap = registry.emplace<me::TileMap>(entity); {
+                tilemap.tileset = me::ResourceLoader::load<me::TileSet>("res/tilesets/tileset.json");
                 tilemap.load_tiles("res/tilemaps/tilemap.json");
             }
         }

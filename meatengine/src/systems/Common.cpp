@@ -1,7 +1,7 @@
 #pragma once
 #include <meatengine/systems/Common.hpp>
 
-namespace meatengine::systems {
+namespace me::systems {
 	void movement(entt::registry& reg, float dt) {
 		for (auto [e, t, v] : reg.view<Transform, Velocity>().each()) {
 			t.position.x += v.linear.x * dt;

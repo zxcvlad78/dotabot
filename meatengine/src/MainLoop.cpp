@@ -17,7 +17,7 @@
 
 #include <meatengine/ScriptingServer.hpp>
 
-namespace meatengine {
+namespace me {
 
     std::string MainLoop::get_window_title() { return m_window_title; }
     void MainLoop::set_window_title(std::string& new_title) {
@@ -41,15 +41,15 @@ namespace meatengine {
     float MainLoop::get_framerate_limit() { return m_target_fps; }
 
     void MainLoop::update_engine(float dt) {
-        meatengine::systems::movement(m_registry, dt);
+        me::systems::movement(m_registry, dt);
         TimerSystems::update(m_registry, dt);
         TileMapSystems::update(m_registry);
-        SpriteSystems::update(m_registry, m_window, dt);
-        meatengine::ui::Systems::process_events(m_registry, m_window);
-		meatengine::ui::Systems::update(m_registry);
-        CameraSystems::update(m_registry, m_window, dt);
+        me::SpriteSystems::update(m_registry, m_window, dt);
+        me::ui::Systems::process_events(m_registry, m_window);
+		me::ui::Systems::update(m_registry);
+        me::CameraSystems::update(m_registry, m_window, dt);
 
-        meatengine::Console::get_instance().update(m_window, dt);
+        me::Console::get_instance().update(m_window, dt);
     }
 
     void MainLoop::render_engine() {
@@ -70,7 +70,7 @@ namespace meatengine {
         ui::updating::install(m_registry);
 
         // потом как нибудь
-        entt::resource<meatengine::Font> mainfont = ResourceLoader::load<Font>("res/fonts/mainfont.ttf");
+        entt::resource<me::Font> mainfont = me::ResourceLoader::load<Font>("res/fonts/mainfont.ttf");
         if (mainfont.handle()) {
             Console::get_instance().init(*this, mainfont->res, 16);
         }
@@ -115,7 +115,7 @@ namespace meatengine {
             }
 
             // потом как нибудь
-            meatengine::Console::get_instance().handle_event(*event, m_window);
+            me::Console::get_instance().handle_event(*event, m_window);
             //
 
             if (m_current_state) {
@@ -155,7 +155,7 @@ namespace meatengine {
             m_current_state->render_deferred(m_window, m_registry, scaled_dt);
 
             m_window.setView(m_window.getDefaultView());
-            meatengine::Console::get_instance().render(m_window);
+            me::Console::get_instance().render(m_window);
 
 
 
@@ -163,5 +163,5 @@ namespace meatengine {
         }
     }
 
-} // namespace meatengine
+} // namespace me
  

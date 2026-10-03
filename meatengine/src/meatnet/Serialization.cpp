@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cstring>
 
-namespace MeatNet {
+namespace me::net {
 
 static inline uint16_t HostToNet16(uint16_t v) {
     return ((v & 0xFF) << 8) | ((v >> 8) & 0xFF);

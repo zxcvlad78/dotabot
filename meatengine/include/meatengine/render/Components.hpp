@@ -1,6 +1,8 @@
 #pragma once
 
-struct ZIndex {
-    int value = 0;
-};
+namespace me {
+    struct ZIndex {
+        int value = 0;
+    };
+}
 

@@ -5,8 +5,8 @@
 #include <meatengine/meatengine.hpp>
 
 
-namespace meatengine::console_commands {
-    inline void init(meatengine::MainLoop& main_loop) {
+namespace me::console_commands {
+    inline void init(me::MainLoop& main_loop) {
         Console::get_instance().register_command(
             "exit",
             [&main_loop](const std::vector<std::string>& args) {
@@ -110,7 +110,7 @@ namespace meatengine::console_commands {
                     try {
                         float val = std::stof(args[0]);
                         if (val >= 0.f) {
-                            meatengine::MainLoop::dt_scale = val;
+                            me::MainLoop::dt_scale = val;
                             Console::get_instance().print_success("Speed scale set to: " + std::to_string(val));
                         } else {
                             Console::get_instance().print_error("Speed scale must be positive");
@@ -119,7 +119,7 @@ namespace meatengine::console_commands {
                         Console::get_instance().print_error(e.what());
                     }
                 } else {
-                    Console::get_instance().print_success("Current speed scale: " + std::to_string(meatengine::MainLoop::dt_scale));
+                    Console::get_instance().print_success("Current speed scale: " + std::to_string(me::MainLoop::dt_scale));
                 }
             },
             "Set time speed multiplier",
@@ -134,16 +134,14 @@ namespace meatengine::console_commands {
                     if (text.starts_with("path::")) {
                         std::string path = text;
                         path.erase(0, 6);
-                        meatengine::ScriptingServer::run_file(path);
+                        me::ScriptingServer::run_file(path);
                     }
                     else {
                         std::string total_string;
                         for(std::string s : args) total_string.append(s + " ");
                         //total_string.erase(-1);
 
-                        std::cout << total_string << std::endl;
-
-                        meatengine::ScriptingServer::run_string(total_string);
+                        me::ScriptingServer::run_string(total_string);
                     }
                 } catch (const std::exception& e) {
                     Console::get_instance().print_error(e.what());

@@ -4,7 +4,7 @@
 #include <memory>
 #include "GameState.hpp"
 
-namespace meatengine {
+namespace me {
     class MainLoop {
     public:
         MainLoop(const std::string& title, sf::VideoMode default_mode = sf::VideoMode{sf::Vector2u(1280, 720)});
@@ -48,4 +48,4 @@ namespace meatengine {
         std::unique_ptr<GameState> m_current_state = nullptr;
         std::unique_ptr<GameState> m_next_state = nullptr;
     };
-} // namespace meatengine
+} // namespace me

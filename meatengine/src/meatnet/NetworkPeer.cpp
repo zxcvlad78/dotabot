@@ -1,6 +1,6 @@
 #include <meatengine/meatnet/NetworkPeer.hpp>
 
-namespace MeatNet {
+namespace me::net {
 
 void NetworkPeer::PollCallbacks() {
     if (m_pInterface) {
@@ -16,4 +16,4 @@ void NetworkPeer::Log(LogLevel level, const char* msg) {
     }
 }
 
-} // namespace MeatNet
+} // namespace me::net

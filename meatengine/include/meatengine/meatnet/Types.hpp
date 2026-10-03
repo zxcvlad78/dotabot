@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-namespace MeatNet {
+namespace me::net {
 
 using ConnectionID = HSteamNetConnection;
 using ListenSocket = HSteamListenSocket;

@@ -4,13 +4,13 @@
 #include "GodLike.hpp"
 
 int main() {
-	auto main_font = meatengine::ResourceLoader::load<meatengine::Font>("res/fonts/mainfont.ttf");
-	meatengine::ResourceLoader::set_default<meatengine::Font>(main_font);
+	auto main_font = me::ResourceLoader::load<me::Font>("res/fonts/mainfont.ttf");
+	me::ResourceLoader::set_default<me::Font>(main_font);
 
-	auto main_stylebox = meatengine::ResourceLoader::load<meatengine::StyleBox>("res/styleboxes/default.ttf");
-	meatengine::ResourceLoader::set_default<meatengine::StyleBox>(main_stylebox);
+	auto main_stylebox = me::ResourceLoader::load<me::StyleBox>("res/styleboxes/default.ttf");
+	me::ResourceLoader::set_default<me::StyleBox>(main_stylebox);
 
-	meatengine::MainLoop mainloop("GodLike");
+	me::MainLoop mainloop("GodLike");
 
 	mainloop.run(std::make_unique<GodLike>());
 

@@ -3,7 +3,7 @@
 
 #include <SFML/Audio.hpp>
 
-namespace CameraSystems {
+namespace me::CameraSystems {
     void update(entt::registry& registry, sf::RenderWindow& window, float dt) {
         auto view = registry.view<Transform, Camera>();
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <entt/entt.hpp>
 
-namespace TimerSystems {
+namespace me::TimerSystems {
     void update(entt::registry& registry, float dt);
 }

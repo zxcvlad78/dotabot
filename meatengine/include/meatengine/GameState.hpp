@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <entt/entt.hpp>
 
-namespace meatengine {
+namespace me {
 
 class GameState {
 public:
@@ -17,4 +17,4 @@ public:
     virtual void on_exit(sf::RenderWindow& window, entt::registry& registry) = 0;
 };
 
-} // namespace meatengine
+} // namespace me

@@ -3,7 +3,7 @@
 #include "NetworkPeer.hpp"
 #include <string>
 
-namespace MeatNet {
+namespace me::net {
 
 class Client : public NetworkPeer {
 public:

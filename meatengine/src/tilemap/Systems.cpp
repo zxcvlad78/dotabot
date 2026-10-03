@@ -2,12 +2,12 @@
 #include <meatengine/tilemap/Components.hpp>
 #include <meatengine/tilemap/Systems.hpp>
 
-namespace meatengine::TileMapSystems {
+namespace me::TileMapSystems {
 
 void update(entt::registry& registry) {
 }
 
-static void rebuild_vertices(meatengine::TileMap& tilemap) {
+static void rebuild_vertices(me::TileMap& tilemap) {
     auto& out = tilemap.cpu_vertices;
     out.clear();
 
@@ -96,4 +96,4 @@ void render(entt::registry& registry, sf::RenderWindow& window) {
     }
 }
 
-} // namespace meatengine::TileMapSystems
+} // namespace me::TileMapSystems

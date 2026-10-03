@@ -5,7 +5,7 @@
 #include <entt/entt.hpp>
 #include <string>
 
-namespace meatengine::lua_bindings {
+namespace me::lua_bindings {
 void init(sol::state& lua) {
     init_resources(lua);
     init_common(lua);
@@ -74,18 +74,18 @@ void init_common(sol::state& lua) {
         "dirty", &TileMap::dirty,
         "tiles", &TileMap::tiles,
         "tileset", sol::property(
-            [](TileMap& tm) -> meatengine::TileSet* {
+            [](TileMap& tm) -> me::TileSet* {
                 auto h = tm.tileset.handle();
                 return h ? h.get() : nullptr;
             },
-            [](TileMap& tm, meatengine::TileSet& ts) {
-                auto sp = meatengine::ResourceLoader::find_handle(&ts);
+            [](TileMap& tm, me::TileSet& ts) {
+                auto sp = me::ResourceLoader::find_handle(&ts);
                 if (!sp) {
                     throw std::runtime_error(
                         "TileMap.tileset: TileSet not from ResourceLoader "
                         "(load it via ResourceLoader.load_tileset first)");
                 }
-                tm.tileset = entt::resource<meatengine::TileSet>{sp};
+                tm.tileset = entt::resource<me::TileSet>{sp};
                 tm.dirty = true;
             }
         )
@@ -109,57 +109,57 @@ void init_common(sol::state& lua) {
     );
 
 
-    lua.new_usertype<meatengine::ui::FillRect>("FillRect",
-        sol::constructors<meatengine::ui::FillRect()>(),
-        "foreground", &meatengine::ui::FillRect::foreground,
-        "dirty", &meatengine::ui::FillRect::dirty,
-        "shape", &meatengine::ui::FillRect::shape,
+    lua.new_usertype<me::ui::FillRect>("FillRect",
+        sol::constructors<me::ui::FillRect()>(),
+        "foreground", &me::ui::FillRect::foreground,
+        "dirty", &me::ui::FillRect::dirty,
+        "shape", &me::ui::FillRect::shape,
 
         "stylebox", sol::property(
-            [](meatengine::ui::FillRect& fr) -> meatengine::StyleBox* {
+            [](me::ui::FillRect& fr) -> me::StyleBox* {
                 auto h = fr.stylebox.handle();
                 return h ? h.get() : nullptr;
             },
-            [](meatengine::ui::FillRect& fr, meatengine::StyleBox& sb) {
-                auto sp = meatengine::ResourceLoader::find_handle(&sb);
+            [](me::ui::FillRect& fr, me::StyleBox& sb) {
+                auto sp = me::ResourceLoader::find_handle(&sb);
                 if (!sp) {
                     throw std::runtime_error(
                         "FillRect.stylebox: StyleBox not from ResourceLoader "
                         "(load it via ResourceLoader.load_stylebox first)");
                 }
-                fr.stylebox = entt::resource<meatengine::StyleBox>{sp};
+                fr.stylebox = entt::resource<me::StyleBox>{sp};
                 fr.dirty = true;
             }
         )
     );
 
-    lua.new_usertype<meatengine::ui::Interactable>("Interactable",
-        sol::constructors<meatengine::ui::Interactable()>()
+    lua.new_usertype<me::ui::Interactable>("Interactable",
+        sol::constructors<me::ui::Interactable()>()
     );
 
-    lua.new_usertype<meatengine::ui::Label>("Label",
+    lua.new_usertype<me::ui::Label>("Label",
         "text", sol::property(
-            [](meatengine::ui::Label& l) -> std::string {
+            [](me::ui::Label& l) -> std::string {
                 return l.sf_text->getString().toAnsiString();
             },
-            [](meatengine::ui::Label& l, const std::string& s) {
+            [](me::ui::Label& l, const std::string& s) {
                 l.sf_text->setString(sf::String::fromUtf8(s.begin(), s.end()));
                 l.dirty = true;
             }
         ),
         "character_size", sol::property(
-            [](meatengine::ui::Label& l) { return l.sf_text->getCharacterSize(); },
-            [](meatengine::ui::Label& l, unsigned int s) { l.sf_text->setCharacterSize(s); }
+            [](me::ui::Label& l) { return l.sf_text->getCharacterSize(); },
+            [](me::ui::Label& l, unsigned int s) { l.sf_text->setCharacterSize(s); }
         ),
         "color", sol::property(
-            [](meatengine::ui::Label& l) { return l.sf_text->getFillColor(); },
-            [](meatengine::ui::Label& l, sf::Color c) { l.sf_text->setFillColor(c); }
+            [](me::ui::Label& l) { return l.sf_text->getFillColor(); },
+            [](me::ui::Label& l, sf::Color c) { l.sf_text->setFillColor(c); }
         ),
         "position", sol::property(
-            [](meatengine::ui::Label& l) { return l.sf_text->getPosition(); },
-            [](meatengine::ui::Label& l, sf::Vector2f p) { l.sf_text->setPosition(p); }
+            [](me::ui::Label& l) { return l.sf_text->getPosition(); },
+            [](me::ui::Label& l, sf::Vector2f p) { l.sf_text->setPosition(p); }
         ),
-        "dirty", &meatengine::ui::Label::dirty
+        "dirty", &me::ui::Label::dirty
     );
 
     auto reg_type = lua.new_usertype<entt::registry>("Registry",
@@ -173,12 +173,12 @@ void init_common(sol::state& lua) {
     register_component<Velocity>(reg_type, "Velocity");
     register_component<TileMap>(reg_type, "TileMap");
     register_component<Camera>(reg_type, "Camera");
-    register_component<meatengine::ui::FillRect>(reg_type, "FillRect");
-	register_component<meatengine::ui::Label>(reg_type, "Label");
-    register_component<meatengine::ui::Interactable>(reg_type, "Interactable");
+    register_component<me::ui::FillRect>(reg_type, "FillRect");
+	register_component<me::ui::Label>(reg_type, "Label");
+    register_component<me::ui::Interactable>(reg_type, "Interactable");
 
 
 }
 
 
-} // namespace meatengine::lua_bindings
+} // namespace me::lua_bindings

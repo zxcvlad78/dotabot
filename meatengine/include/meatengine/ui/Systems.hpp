@@ -2,7 +2,7 @@
 #include <entt/entt.hpp>
 #include "SFML/Graphics.hpp"
 
-namespace meatengine::ui::Systems {
+namespace me::ui::Systems {
 	void update(entt::registry& reg);
 	void render(entt::registry& reg, sf::RenderWindow& window);
 

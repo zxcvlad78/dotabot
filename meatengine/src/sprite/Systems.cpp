@@ -2,7 +2,7 @@
 #include <meatengine/sprite/Systems.hpp>
 #include <meatengine/render/Components.hpp>
 
-namespace SpriteSystems {
+namespace me::SpriteSystems {
     void update(entt::registry& registry, sf::RenderWindow& window, float dt) {
         handle_fullscreen_scale(registry, window);
         update_animation(registry, dt);
@@ -111,7 +111,7 @@ namespace SpriteSystems {
                 }
             }
 
-            const meatengine::Animation::FrameData& frame = sprite_anim.current_animation->frames[sprite_anim.current_frame_idx];
+            const me::Animation::FrameData& frame = sprite_anim.current_animation->frames[sprite_anim.current_frame_idx];
             sprite.sprite.setTextureRect(sf::IntRect({frame.x, frame.y}, {frame.w, frame.h}));
         }
     }

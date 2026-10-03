@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-namespace meatengine {
+namespace me {
     class ConfigFile {
     private:
         std::unordered_map<std::string, std::string> values;
@@ -40,4 +40,4 @@ namespace meatengine {
         void set(const std::string& key, const char* value);
         std::string get(const std::string& key, const char* default_value = "") const;
     };
-} // namespace meatengine
+} // namespace me

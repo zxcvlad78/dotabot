@@ -2,7 +2,7 @@
 #include <meatengine/FileSystem.hpp>
 #include <filesystem>
 
-namespace meatengine {
+namespace me {
     void ConfigFile::set_save_path(const std::string& new_path) { _save_path = new_path; }
     std::string ConfigFile::get_save_path() const { return _save_path; }
 
@@ -139,4 +139,4 @@ namespace meatengine {
         if (it != values.end()) return it->second;
         return default_value ? default_value : "";
     }
-} // namespace meatengine
+} // namespace me

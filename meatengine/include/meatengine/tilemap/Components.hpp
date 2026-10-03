@@ -2,7 +2,7 @@
 #include <meatengine/Resources.hpp>
 #include <SFML/Graphics.hpp>
 
-namespace meatengine {
+namespace me {
 	struct TileMap {
         int origin_x = 0;
         int origin_y = 0;
@@ -13,7 +13,7 @@ namespace meatengine {
 		bool dirty = true;
 
 		std::vector<int> tiles;
-		entt::resource<meatengine::TileSet> tileset;
+		entt::resource<me::TileSet> tileset;
 	
 		sf::VertexBuffer vertex_buffer{
 			sf::PrimitiveType::Triangles,

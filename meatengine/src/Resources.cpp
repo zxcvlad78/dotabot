@@ -1,7 +1,7 @@
 #include <meatengine/Resources.hpp>
 #include <meatengine/ResourceLoader.hpp>
 
-namespace meatengine {
+namespace me {
     std::shared_ptr<Texture> Texture::operator()(const std::string& path) const {
 
         auto texture = std::make_shared<Texture>();

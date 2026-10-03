@@ -3,7 +3,7 @@
 #include <entt/entt.hpp>
 
 
-namespace meatengine::lua_bindings {
+namespace me::lua_bindings {
 	template <typename Component>
     void register_component_methods(sol::usertype<entt::registry>& reg_type, const std::string& name) {
         reg_type.set("add_" + name,

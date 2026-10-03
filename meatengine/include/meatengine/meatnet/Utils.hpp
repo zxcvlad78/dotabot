@@ -4,7 +4,7 @@
 #include <functional>
 #include <string>
 
-namespace MeatNet {
+namespace me::net {
 
 enum class LogLevel {
     Debug = k_ESteamNetworkingSocketsDebugOutputType_Debug,

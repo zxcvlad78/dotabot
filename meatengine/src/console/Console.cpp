@@ -7,7 +7,7 @@
 #include <meatengine/console/commands.hpp>
 #include <meatengine/FileSystem.hpp>
 
-namespace meatengine {
+namespace me {
     static int lua_print(lua_State* L) {
         int n = lua_gettop(L);
         std::string result;
@@ -64,10 +64,10 @@ namespace meatengine {
     void Console::update_ui_cfg(sf::RenderWindow& window) {
         sf::Vector2f window_size = static_cast<sf::Vector2f>(window.getSize());
 
-        theme_outline_color = meatengine::parsing::str_to_color(config_file->get("theme_outline_color", "30 30 40"));
-        foreground_color = meatengine::parsing::str_to_color(config_file->get("foreground_color", "25 25 25 255"));
-        background_color = meatengine::parsing::str_to_color(config_file->get("background_color", "15 15 15 240"));
-        selection_color = meatengine::parsing::str_to_color(config_file->get("selection_color", "255 15 15 127"));
+        theme_outline_color = me::parsing::str_to_color(config_file->get("theme_outline_color", "30 30 40"));
+        foreground_color = me::parsing::str_to_color(config_file->get("foreground_color", "25 25 25 255"));
+        background_color = me::parsing::str_to_color(config_file->get("background_color", "15 15 15 240"));
+        selection_color = me::parsing::str_to_color(config_file->get("selection_color", "255 15 15 127"));
         char_size = config_file->get("char_size", 16);
         console_width = config_file->get("console_width", window_size.x);
         console_height = config_file->get("console_height", window_size.y);
@@ -116,7 +116,7 @@ namespace meatengine {
         return i;
     }
 
-    void Console::init(meatengine::MainLoop& main_loop, sf::Font& f, uint16_t character_size) {
+    void Console::init(me::MainLoop& main_loop, sf::Font& f, uint16_t character_size) {
         ScriptingServer::lua().set_function("print", lua_print);
         load_cfg(main_loop.get_window());
         load_history();
@@ -750,8 +750,8 @@ namespace meatengine {
             [this](const std::vector<std::string>& args) {
                 if (!args.empty()) {
                     try {
-                        theme_outline_color = meatengine::parsing::str_to_color(args);
-                        config_file->set("theme_outline_color", meatengine::parsing::color_to_str(theme_outline_color));
+                        theme_outline_color = me::parsing::str_to_color(args);
+                        config_file->set("theme_outline_color", me::parsing::color_to_str(theme_outline_color));
                     } catch (const std::exception& e) {
                         print_error(e.what());
                     }
@@ -766,8 +766,8 @@ namespace meatengine {
             [this](const std::vector<std::string>& args) {
                 if (!args.empty()) {
                     try {
-                        foreground_color = meatengine::parsing::str_to_color(args);
-                        config_file->set("foreground_color", meatengine::parsing::color_to_str(foreground_color));
+                        foreground_color = me::parsing::str_to_color(args);
+                        config_file->set("foreground_color", me::parsing::color_to_str(foreground_color));
                     } catch (const std::exception& e) {
                         print_error(e.what());
                     }
@@ -782,8 +782,8 @@ namespace meatengine {
             [this](const std::vector<std::string>& args) {
                 if (!args.empty()) {
                     try {
-                        background_color = meatengine::parsing::str_to_color(args);
-                        config_file->set("background_color", meatengine::parsing::color_to_str(background_color));
+                        background_color = me::parsing::str_to_color(args);
+                        config_file->set("background_color", me::parsing::color_to_str(background_color));
                     } catch (const std::exception& e) {
                         print_error(e.what());
                     }
@@ -829,4 +829,4 @@ namespace meatengine {
         );
     }
 
-} // namespace meatengine
+} // namespace me

@@ -10,7 +10,7 @@
 #include <meatengine/ResourceLoader.hpp>
 
 
-namespace meatengine::ui {
+namespace me::ui {
 	struct UIRoot {};
 
 	struct Padding { float top=0, right=0, bottom=0, left=0; };
@@ -33,7 +33,7 @@ namespace meatengine::ui {
 	};
 
 	struct FillRect {
-		entt::resource<meatengine::StyleBox> stylebox;
+		entt::resource<me::StyleBox> stylebox;
 		sf::RectangleShape shape;
 		bool foreground = true;
 
@@ -88,7 +88,7 @@ namespace meatengine::ui {
 		}
 
 		Label() = default; 
-		Label(meatengine::Font& font) : sf_text(font.res) { }
+		Label(me::Font& font) : sf_text(font.res) { }
 	};
 
 	struct Container {

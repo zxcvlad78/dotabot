@@ -5,7 +5,7 @@
 #include <string>
 #include <cstring>
 
-namespace MeatNet {
+namespace me::net {
 
 static inline uint32_t HostToNet32(uint32_t v);
 static inline uint64_t HostToNet64(uint64_t v);

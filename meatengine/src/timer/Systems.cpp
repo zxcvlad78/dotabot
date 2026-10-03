@@ -2,7 +2,7 @@
 #include <meatengine/timer/Systems.hpp>
 
 
-namespace TimerSystems {
+namespace me::TimerSystems {
     void update(entt::registry& registry, float dt) {
         for (auto [e, t] : registry.view<Timer>().each()) {
             if (t.paused) continue;

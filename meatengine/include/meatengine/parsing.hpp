@@ -4,7 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "nlohmann/json.hpp"
 
-namespace meatengine::parsing {
+namespace me::parsing {
 
     inline int hex_digit(char c) {
         if (c >= '0' && c <= '9') return c - '0';
@@ -141,7 +141,7 @@ namespace meatengine::parsing {
 
 namespace sf {
     inline void from_json(const nlohmann::json& j, Color& c) {
-        using namespace meatengine::parsing;
+        using namespace me::parsing;
         if (j.is_string()) {
             c = str_to_color(j.get<std::string>());
         } else if (j.is_array()) {
@@ -158,6 +158,6 @@ namespace sf {
     }
 
     inline void to_json(nlohmann::json& j, const Color& c) {
-        j = meatengine::parsing::color_to_hex(c);
+        j = me::parsing::color_to_hex(c);
     }
 }

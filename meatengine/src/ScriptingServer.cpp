@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-namespace meatengine {
+namespace me {
     sol::state ScriptingServer::lua_state;
 
     static void ensure_initialized() {
@@ -49,4 +49,4 @@ namespace meatengine {
         ensure_initialized();
         return lua_state;
     }
-} // namespace meatengine
+} // namespace me

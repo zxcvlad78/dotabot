@@ -1,7 +1,7 @@
 #include <meatengine/bbcode.hpp>
 #include <meatengine/parsing.hpp>
 
-namespace meatengine::BBCode {
+namespace me::BBCode {
     std::vector<TextFragment> parse(const std::string& input, unsigned int default_size) {
         std::vector<TextFragment> result;
 
@@ -75,7 +75,7 @@ namespace meatengine::BBCode {
                     current.underlined = true;
                 } else if (tag.rfind("color=", 0) == 0) {
                     std::string color_str = tag.substr(6);
-                    current.color = meatengine::parsing::str_to_color(color_str);
+                    current.color = me::parsing::str_to_color(color_str);
                 } else if (tag.rfind("size=", 0) == 0) {
                     try {
                         int sz = std::stoi(tag.substr(5));
@@ -96,4 +96,4 @@ namespace meatengine::BBCode {
         }
         return result;
     }
-} // namespace meatengine::BBCode
+} // namespace me::BBCode

@@ -4,7 +4,7 @@
 #include <meatengine/ui/Systems.hpp>
 
 
-namespace meatengine::ui::Systems {
+namespace me::ui::Systems {
 	void update(entt::registry& reg) {
 		for (auto [e, fr] : reg.view<FillRect>().each()) {
             fr.update_fill(reg, e);

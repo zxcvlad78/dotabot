@@ -2,13 +2,13 @@
 
 namespace godlike::systems {
 	void player_input(entt::registry& reg, sf::RenderWindow& window) {
-		auto view = reg.view<components::MoveSpeed, Velocity, components::PlayerInput>();
+		auto view = reg.view<components::MoveSpeed, me::Velocity, components::PlayerInput>();
 		
 		for (auto [entity, movespeed, velocity] : view.each()) {
 			velocity.linear.x = 0.0f;
 			velocity.linear.y = 0.0f;
 	
-			if (meatengine::Console::get_instance().is_visible()) { continue; }
+			if (me::Console::get_instance().is_visible()) { continue; }
 			
 			velocity.linear.y -= sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
 			velocity.linear.y += sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);

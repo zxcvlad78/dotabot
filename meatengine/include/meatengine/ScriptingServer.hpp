@@ -8,7 +8,7 @@
 
 #include <entt/entt.hpp>
 
-namespace meatengine {
+namespace me {
     class ScriptingServer {
     private:
         static sol::state lua_state;
@@ -20,4 +20,4 @@ namespace meatengine {
 
 		static sol::state& lua();
     };
-} // namespace meatengine
+} // namespace me

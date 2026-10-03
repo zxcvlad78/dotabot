@@ -6,7 +6,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace MeatNet {
+namespace me::net {
 
 class NetworkPeer {
 public:

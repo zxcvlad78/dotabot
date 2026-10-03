@@ -15,7 +15,7 @@
 
 using json = nlohmann::json;
 
-namespace meatengine {
+namespace me {
     inline json get_json_data(const std::string& path) {
         std::ifstream file(path);
         if (!file.is_open()) return nullptr;

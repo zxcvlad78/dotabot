@@ -11,7 +11,7 @@
 #include <meatengine/MainLoop.hpp>
 #include <meatengine/bbcode.hpp>
 
-namespace meatengine {
+namespace me {
     struct TextSelection {
         int start;
         int end;
@@ -39,7 +39,7 @@ namespace meatengine {
 
         static Console& get_instance();
 
-        void init(meatengine::MainLoop& main_loop, sf::Font& f, uint16_t character_size = 14);
+        void init(me::MainLoop& main_loop, sf::Font& f, uint16_t character_size = 14);
         void update(sf::RenderWindow& window, float dt);
         void render(sf::RenderWindow& window);
         void handle_event(const sf::Event& event, sf::RenderWindow& window);
@@ -144,4 +144,4 @@ namespace meatengine {
         void update_ui_cfg(sf::RenderWindow& window);
     };
 
-} // namespace meatengine
+} // namespace me

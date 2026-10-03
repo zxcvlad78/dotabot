@@ -3,6 +3,6 @@
 #include <meatengine/Generic.hpp>
 #include <SFML/Graphics/Transform.hpp>
 
-namespace meatengine::systems {
+namespace me::systems {
 	void movement(entt::registry& reg, float dt);	
 }

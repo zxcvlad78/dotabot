@@ -11,7 +11,7 @@
 #include <signal.h>
 #endif
 
-namespace MeatNet {
+namespace me::net {
 
 static LogCallback g_logCallback = nullptr;
 static bool g_bInitialized = false;
