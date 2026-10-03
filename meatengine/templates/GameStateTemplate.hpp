@@ -1,7 +1,7 @@
 #pragma once
 #include <meatengine/meatengine.hpp>
 
-class ExampleGameState : public me::GameState {
+class GameStateTemplate : public me::GameState {
     public:
     void on_enter(sf::RenderWindow& window, entt::registry& registry) override {
     // game state enter))
